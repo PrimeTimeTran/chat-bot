@@ -3,6 +3,9 @@ require 'http'
 require 'json'
 require 'awesome_print'
 require_relative 'bot'
+require 'easy_translate'
+
+EasyTranslate.api_key= ENV['TRANSLATE_API_KEY']
 
 get '/' do
    ap params # print the params out
@@ -19,7 +22,7 @@ get '/callback' do
   end
 end
 
-post '/' do
+post '/callback' do
   data = JSON.parse(request.body.read)
   ap data
   entries = data["entry"]
@@ -27,7 +30,7 @@ post '/' do
     entry["messaging"].each do |messaging|
       sender_id = messaging["sender"]["id"]
       text = messaging["message"]["text"]
-      reply = "You said: #{text}"
+      reply = EasyTranslate.translate(text, to: :vi)
       Bot.new.send_message(sender_id, reply)
     end
   end
