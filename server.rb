@@ -28,11 +28,14 @@ post '/callback' do
   entries = data["entry"]
   entries.each do |entry|
     entry["messaging"].each do |messaging|
-      sender_id = messaging["sender"]["id"]
+      sender_id = 1486384961431995
       text = messaging["message"]["text"]
-      reply = EasyTranslate.translate(text, to: :vi)
+      reply = "You said: #{text}"
       Bot.new.send_message(sender_id, reply)
     end
   end
   'ok'
 end
+
+
+# reply = EasyTranslate.translate(text, to: :vi)
