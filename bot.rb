@@ -12,5 +12,3 @@ class Bot
     puts data.inspect
   end
 end
-
-Bot.new.send_message(loi_id, "Hey There")
