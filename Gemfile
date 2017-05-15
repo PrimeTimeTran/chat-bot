@@ -4,3 +4,4 @@ gem "http"
 gem "json"
 gem "awesome_print"
 gem "easy_translate"
+gem 'content-type'
