@@ -9,6 +9,8 @@ class Bot
 
   def send_message(recipient_id, message_text)
     data = {recipient: {id: recipient_id}, message: {text: message_text}}
-    puts data.inspect
+    HTTP.post(fb_url, json: data)
   end
 end
+
+Bot.new.send_message(loi_id, "Hey There")
