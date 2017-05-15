@@ -28,7 +28,7 @@ post '/callback' do
   entries = data["entry"]
   entries.each do |entry|
     entry["messaging"].each do |messaging|
-      sender_id = 1486384961431995
+      sender_id = messaging["sender"]["id"]
       text = messaging["message"]["text"]
       reply = "You said: #{text}"
       Bot.new.send_message(sender_id, reply)
