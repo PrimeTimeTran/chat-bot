@@ -30,12 +30,9 @@ post '/callback' do
     entry["messaging"].each do |messaging|
       sender_id = messaging["sender"]["id"]
       text = messaging["message"]["text"]
-      reply = "You said: #{text}"
+      reply = EasyTranslate.translate(text, to: :vi)
       Bot.new.send_message(sender_id, reply)
     end
   end
   'ok'
 end
-
-
-# reply = EasyTranslate.translate(text, to: :vi)
