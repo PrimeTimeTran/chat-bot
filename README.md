@@ -12,5 +12,5 @@ EX:
 > language:French
 
 
-## Example Use
-![Smaller icon](http://http://i.imgur.com/qcNsFyv.jpg "Title here")
+#### Example Use
+![Screen Shot](/img/tutorial.jpg)
