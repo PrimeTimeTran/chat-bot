@@ -10,3 +10,7 @@ The Bot will ask users once what language preference they have for translation. 
 
 EX:
 > language:French
+
+
+## Example Use
+![Smaller icon](http://http://i.imgur.com/qcNsFyv.jpg "Title here")
