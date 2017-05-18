@@ -1,7 +1,5 @@
 require 'http'
 
-loi_id = "1486384961431995"
-
 class Bot
   def fb_url
     "https://graph.facebook.com/me/messages?access_token=" + ENV['PAGE_ACCESS_TOKEN']
@@ -12,5 +10,3 @@ class Bot
     HTTP.post(fb_url, json: data)
   end
 end
-
-Bot.new.send_message(loi_id, "Hey There")
