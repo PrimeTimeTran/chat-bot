@@ -7,17 +7,18 @@ require 'easy_translate'
 
 EasyTranslate.api_key= ENV['TRANSLATE_API_KEY']
 
-@@lang = "English"
 @@initial = 0
-@@count_for_first = 0
+@@users = {}
 
-def language(lang)
-  if lang == "English"
+def language(key)
+  if @@users[key] == "English"
     {to: :en}
-  elsif lang == "Vietnamese"
+  elsif @@users[key] == "Vietnamese"
     {to: :vi}
-  elsif lang == "French"
+  elsif @@users[key] == "French"
     {to: :fr}
+  else
+    {to: :en}
   end
 end
 
@@ -42,36 +43,32 @@ post '/callback' do
 
       # Logic for if to send the initial message to user
       # Need to work on adding this feature to EACH INDIVIDUAL USER
-      if @@initial == 0
-        Bot.new.send_message(sender_id, "What language would you like me to translate?")
-        @@initial += 1
-      end
+        unless @@users[sender_id]
+          Bot.new.send_message(sender_id, "To what language would you like me to translate? I know English, Vietnamese, & French")
+        end
 
-      # Language choice
-      if text == "/Vietnamese" || (text == "Vietnamese" && @@initial <= 1)
-        Bot.new.send_message(sender_id, "Ok, I'll translate to Vietnamese. If you want to change later simply say '/Language'")
-        @@lang = "Vietnamese"
-        @@initial += 1
-      elsif text == "/English" || (text == "English" && @@initial <= 1)
-        Bot.new.send_message(sender_id, "Ok, I'll translate to English. If you want to change later simply say '/Language'")
-        @@lang = "English"
-        @@initial += 1
-      elsif text == "/French" || (text == "French" && @@initial <= 1)
-        Bot.new.send_message(sender_id, "Ok, I'll translate to French. If you want to change later simply say '/Language'")
-        @@lang = "French"
-        @@initial += 1
-      else
-      end
+        @@users[sender_id] ||= []
 
-      # Transition between asking what language to "You said"
-      if @@count_for_first == 0
-        @@count_for_first += 1
-      else
-        reply = "You said: #{text}"
-      end
+        # Language choice
+        if text == "/Vietnamese" || (text == "Vietnamese" && @@initial <= 1)
+          Bot.new.send_message(sender_id, "Ok, I'll translate to Vietnamese. If you want to change later simply say '/Language'")
+          @@users[sender_id] = "Vietnamese"
+          @@initial += 1
+        elsif text == "/English" || (text == "English" && @@initial <= 1)
+          Bot.new.send_message(sender_id, "Ok, I'll translate to English. If you want to change later simply say '/Language'")
+          @@users[sender_id] = "English"
+          @@initial += 1
+        elsif text == "/French" || (text == "French" && @@initial <= 1)
+          Bot.new.send_message(sender_id, "Ok, I'll translate to French. If you want to change later simply say '/Language'")
+          @@users[sender_id] = "French"
+          @@initial += 1
+        else
+        end
+
+      reply = "You said: #{text}"
 
       # Bot responds with translation language of users choice.
-      reply = EasyTranslate.translate(text, language(@@lang))
+      reply = EasyTranslate.translate(text, language(sender_id))
       Bot.new.send_message(sender_id, reply)
     end
   end
