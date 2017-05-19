@@ -21,6 +21,9 @@ def language(key)
     {to: :en}
   end
 end
+get '/' do
+  'Hello world!'
+end
 
 get '/callback' do
   if params["hub.mode"] == "subscribe" && params["hub.verify_token"] == "asdf123"
