@@ -1,4 +1,7 @@
 require 'http'
+require 'easy_translate'
+
+loi_id = "727486077376066"
 
 class Bot
   def fb_url
