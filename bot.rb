@@ -5,7 +5,7 @@ loi_id = "727486077376066"
 
 class Bot
   def fb_url
-    "https://graph.facebook.com/me/messages?access_token=" + ENV['PAGE_ACCESS_TOKEN']
+    "https://graph.facebook.com/v2.6/me/messages?access_token=" + ENV['PAGE_ACCESS_TOKEN']
   end
 
   def send_message(recipient_id, message_text)
