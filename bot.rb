@@ -10,3 +10,5 @@ class Bot
     HTTP.post(fb_url, json: data)
   end
 end
+
+Bot.new.send_message(loi_id, "Hello World! We're learning how to build a bot!")
