@@ -34,6 +34,7 @@ end
 
 post '/callback' do
   data = JSON.parse(request.body.read)
+  ap data
   entries = data["entry"]
   entries.each do |entry|
     entry["messaging"].each do |messaging|
