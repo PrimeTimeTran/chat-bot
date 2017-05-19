@@ -44,7 +44,7 @@ post '/callback' do
       # Logic for if to send the initial message to user
       # Need to work on adding this feature to EACH INDIVIDUAL USER
         unless @@users[sender_id]
-          Bot.new.send_message(sender_id, "To what language would you like me to translate?")
+          Bot.new.send_message(sender_id, "To what language would you like me to translate? I know English, Vietnamese, & French")
         end
 
         @@users[sender_id] ||= []
