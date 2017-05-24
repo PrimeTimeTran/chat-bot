@@ -96,14 +96,14 @@ post '/callback' do
               @@users[sender_id][:conversationType] = 'language'
               Bot.new.send_message(sender_id, "What language would you like to select?")
               text = text[1..-1]
+            else
+              choice = language(sender_id)
+              reply = EasyTranslate.translate(text, to: choice)
+              Bot.new.send_message(sender_id, reply)
             end
-
-            choice = language(sender_id)
-            reply = EasyTranslate.translate(text, to: choice)
-            ap @@users
-            Bot.new.send_message(sender_id, reply)
           else
         end
+
     end
   end
   'ok'
