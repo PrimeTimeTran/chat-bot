@@ -1,0 +1,3 @@
+@@users = {"loi" => "English", "harley" => "Vietnamese", "charles" => "Korean" }
+
+@@choice = users["loi"]
