@@ -53,7 +53,7 @@ post '/callback' do
             end
 
           when 'begun'
-            if text[0] == "/" && text.downcase != '/language'
+            if text.start_with?("/") && text.downcase != "/language"
               @@users[sender_id][:language] = text[1..-1]
               text = text[1..-1]
             end
@@ -63,9 +63,8 @@ post '/callback' do
               ap @@users
               Bot.new.send_message(sender_id, "What language would you like to select?")
               text = text[1..-1]
-            else choice.nil?
-              Bot.new.send_message(sender_id, "Sorry I don't know #{@@users[sender_id][:language]}")
-            elsif
+            else
+              choice = language(sender_id)
               reply = EasyTranslate.translate(text, to: choice)
               ap @@users
               Bot.new.send_message(sender_id, reply)
