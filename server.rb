@@ -44,11 +44,13 @@ post '/callback' do
             choice = language(sender_id)
             if choice == nil
               @@users[sender_id][:conversation_type] ='begun'
+              puts "47"
               ap @@users
               Bot.new.send_message(sender_id, "Sorry couldn't find #{@@users[sender_id][:language]} so I'm going to speak English for now.\nPlease try another language with '/language'. For example, '/English' for translations to English")
             else
               @@users[sender_id][:conversation_type] = 'begun'
-              ap @@users
+              puts "52"
+              ap "hello"
               Bot.new.send_message(sender_id, "Ok, I'll translate to #{@@users[sender_id][:language]}")
             end
 
@@ -60,12 +62,16 @@ post '/callback' do
 
             if text.downcase == "/language"
               @@users[sender_id][:conversation_type] = 'language'
+              puts "65"
               ap @@users
               Bot.new.send_message(sender_id, "What language would you like to select?")
               text = text[1..-1]
             else
               choice = language(sender_id)
+              ap text
+              ap choice
               reply = EasyTranslate.translate(text, to: choice)
+              puts "72"
               ap @@users
               Bot.new.send_message(sender_id, reply)
             end
